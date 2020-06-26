@@ -4,9 +4,18 @@ class PagesController < ApplicationController
   require 'open-uri'
   
   def home
+  end
+
+  def trello
+  end 
+
+  def youtube
+  end  
+
+
+  def weather
     if params[:query].present?
       
-
       name = params[:query]
       @url = "https://api.openweathermap.org/data/2.5/weather?q=#{name.to_s}&appid=6665c7eaa20bb85d40242ced15d50d83"
       @uri = URI(@url)
@@ -14,23 +23,23 @@ class PagesController < ApplicationController
       @output = JSON.parse(@response)
 
       if @output.empty?
-        @final_output = {"weather"=>[{"main"=>"N/A"}], "main"=>[{"temp"=>273, "humidity"=>"N/A"}] }
+        @name_output = "Error"
+        @weather_output = "Error"
+        @temp_output = "Error"
+        @humidity_output = "Error"
       elsif !@output
-        @final_output = {"weather"=>[{"main"=>"N/A"}], "main"=>[{"temp"=>273, "humidity"=>"N/A"}] }
+        @name_output = "Error"
+        @weather_output = "Error"
+        @temp_output = "Error"
+        @humidity_output = "Error"
       else
-        @final_output = @output
+        @name_output = @output['name']
+        @weather_output = @output['weather'][0]['main']
+        @temp_output = @output['main']['temp']
+        @humidity_output = @output['main']['humidity']
       end
     end  
   end
-
-  def trello
-  end  
-
-  def beer
-    @url = "https://sandbox-api.brewerydb.com/v2/beer/random/?key=76b511fd2a3a2643da15a48aae4c1bd0"
-    
-
-  end  
 
   private
 

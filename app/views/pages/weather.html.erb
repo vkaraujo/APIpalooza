@@ -1,0 +1,32 @@
+<div class="container">
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">City</th>
+        <th scope="col">Weather</th>
+        <th scope="col">Temp<th>
+        <th scope="col">Humidity</th>
+        </tr>
+    </thead>
+
+    <tbody>  
+        <tr>
+        <td><%= @name_output %></td>
+        <td><%= @weather_output %></td>
+        <td><%= (@temp_output - 273).floor %></td>
+        <td><%= @humidity_output %></td>
+        </tr>
+    </tbody> 
+    </table>
+
+    <br>
+
+    <%= form_tag weather_path, method: :get do %>
+    <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Choose a city"
+    %>
+    <%= submit_tag "Search", class: "btn btn-primary" %>
+    <% end %>
+</div>
