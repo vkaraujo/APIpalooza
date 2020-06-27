@@ -10,6 +10,43 @@ class PagesController < ApplicationController
   end 
 
   def youtube
+  end
+  
+  def food
+    if params[:query].present?
+      
+      name = params[:query]
+      @url = "https://api.spoonacular.com/recipes/search?apiKey=1b05aab005a14beb899dd8e0fb8d4cb9&query=#{name.to_s}&number=3"
+      @uri = URI(@url)
+      @response = Net::HTTP.get(@uri)
+      @output = JSON.parse(@response)
+
+      if @output.empty?
+        @title_output = "Error"
+        @img_output = "Error"
+        @title_outputb = "Error"
+        @img_outputb = "Error"
+        @title_outputc = "Error"
+        @img_outputc = "Error"
+      elsif !@output
+        @title_output = "Error"
+        @img__output = "Error"
+        @title_outputb = "Error"
+        @img_outputb = "Error"
+        @title_outputc = "Error"
+        @img_outputc = "Error"
+      else
+        @title_output = @output['results'][0]['title']
+        @img_output = @output['results'][0]['id']
+
+        @title_outputb = @output['results'][1]['title']
+        @img_outputb = @output['results'][1]['id']
+
+        @title_outputc = @output['results'][2]['title']
+        @img_outputc = @output['results'][2]['id']
+
+      end
+    end  
   end  
 
 

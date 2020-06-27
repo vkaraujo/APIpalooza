@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get '/trello', to: 'pages#trello'
   get '/weather', to: 'pages#weather'
   get '/youtube', to: 'pages#youtube'
+  get '/food', to: 'pages#food'
 end
