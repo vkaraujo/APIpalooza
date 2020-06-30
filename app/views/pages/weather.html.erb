@@ -1,3 +1,21 @@
+<div class="container card-white">
+  
+  <div class="text-center">
+    <%= image_tag "openweather.png", class: "logo"%>
+    <h1>OpenWeather API</h1>
+  </div>
+  
+  <div class="d-inline-block text-center">
+    <p>API Documentaion:
+      <a href="https://openweathermap.org/api">https://openweathermap.org/api</a>
+    </p>
+  </div>
+  
+  <p class="border border-warning p-3">
+    Using openweather API to findout weather information on any city.
+  </p>
+</div>
+
 <div class="container">
     <table class="table">
     <thead>
@@ -13,7 +31,7 @@
         <tr>
         <td><%= @name_output %></td>
         <td><%= @weather_output %></td>
-        <td><%= @temp_output %></td>
+        <td><%= @temp_output %>K°</td>
         <td><%= @humidity_output %></td>
         </tr>
     </tbody> 
@@ -27,6 +45,7 @@
         class: "form-control",
         placeholder: "Choose a city"
     %>
+    <br>
     <%= submit_tag "Search", class: "btn btn-primary" %>
     <% end %>
 </div>
