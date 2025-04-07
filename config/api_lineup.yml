@@ -1,0 +1,41 @@
+- name: OpenWeatherMap
+  icon: "🌦️"
+  description: "Forecasts, current weather, and more — just drop your city name and go."
+  hit: "What’s the weather in Tokyo?"
+  image: "https://images.unsplash.com/photo-1562155618-e1a8bc2eb04f?w=500&auto=format&fit=crop&q=60"
+
+- name: Spoonacular
+  icon: "🍔"
+  description: "Find recipes, ingredients, and delicious ideas with one search."
+  hit: "Show me recipes with mushrooms"
+  image: "https://images.unsplash.com/photo-1713972327552-b453b9775994?w=1600&auto=format&fit=crop"
+
+- name: Open Library
+  icon: "📚"
+  description: "Search books, get covers, and discover hidden gems."
+  hit: "Find books by Tolkien"
+  image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1600&auto=format&fit=crop"
+
+- name: JokeAPI
+  icon: "😂"
+  description: "Get programming jokes, dark humor, dad jokes, and more."
+  hit: "Tell me a programming joke"
+  image: "https://images.unsplash.com/photo-1606145166375-714fe7f24261?w=500&auto=format&fit=crop&q=60"
+
+- name: Numbers API
+  icon: "🔢"
+  description: "Math, trivia, and facts about any number."
+  hit: "Tell me something about 42"
+  image: "https://images.unsplash.com/photo-1620856516969-6b6f1c1e780b?w=500&auto=format&fit=crop&q=60"
+
+- name: Open Trivia DB
+  icon: "❓"
+  description: "Thousands of trivia questions across all topics and difficulties."
+  hit: "Give me a general knowledge question"
+  image: "https://images.unsplash.com/photo-1570937943292-a574bd5bc722?w=500&auto=format&fit=crop&q=60"
+
+- name: Rest Countries API
+  icon: "🌍"
+  description: "Discover data about every country in the world — flags, population, and more."
+  hit: "Tell me about Brazil"
+  image: "https://plus.unsplash.com/premium_photo-1712011181415-570ef105f57a?w=500&auto=format&fit=crop&q=60"
