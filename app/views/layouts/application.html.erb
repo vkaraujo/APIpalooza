@@ -8,11 +8,18 @@
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application" %>
+    <%= tag.link rel: "preconnect", href: "https://fonts.googleapis.com" %>
+    <%= tag.link rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: true %>
+    <%= tag.link href: "https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap", rel: "stylesheet" %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-gray-100 text-gray-900">
+    <%= render "shared/navbar" %>
+
+    <main class="bg-white border-t-4 border-yellow-300 shadow-inner">
       <%= yield %>
     </main>
+
+    <%= render "shared/footer" %>
   </body>
 </html>
