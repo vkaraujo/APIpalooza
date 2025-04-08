@@ -8,20 +8,47 @@ class RecipesController < ApplicationController
 
   def show
     keyword = params[:ingredient]
-    response = self.class.get("/recipes/complexSearch", 
-      headers: { "x-api-key" => ENV["SPOONACULAR_API_KEY"] },
-      query: { query: keyword, number: 5 }
-    )
+    recipes = search_recipes(keyword)
 
-    Rails.logger.debug "Spoonacular key from ENV: #{ENV['SPOONACULAR_API_KEY']}"
-    Rails.logger.debug "Loaded API key: #{ENV['SPOONACULAR_API_KEY']}"
-    Rails.logger.debug "Spoonacular status: #{response.code}"
-    Rails.logger.debug "Spoonacular body: #{response.body}"
-
-    if response.success?
-      render partial: 'recipes/results', locals: { data: response.parsed_response['results'], keyword: keyword }
+    if recipes
+      detailed = fetch_detailed_recipes(recipes)
+      render partial: 'recipes/results', locals: { data: detailed, keyword: keyword }
     else
-      render turbo_stream: turbo_stream.replace('recipes_result', "<div class='text-red-600'>Could not fetch recipes for #{keyword}.</div>")
+      render_error(keyword)
     end
+  end
+
+  private
+
+  def api_key
+    ENV['SPOONACULAR_API_KEY']
+  end
+
+  def search_recipes(keyword)
+    response = self.class.get('/recipes/complexSearch',
+                              headers: { 'x-api-key' => api_key },
+                              query: { query: keyword, number: 5 })
+
+    response.success? ? response.parsed_response['results'] : nil
+  end
+
+  def fetch_detailed_recipes(recipes)
+    recipes.map do |recipe|
+      response = self.class.get("/recipes/#{recipe['id']}/information",
+                                headers: { 'x-api-key' => api_key })
+
+      response.success? ? response.parsed_response : fallback_recipe(recipe)
+    end
+  end
+
+  def fallback_recipe(recipe)
+    { 'title' => recipe['title'], 'error' => true }
+  end
+
+  def render_error(keyword)
+    render turbo_stream: turbo_stream.replace(
+      'recipes_result',
+      "<div class='text-red-600'>Could not fetch recipes for #{keyword}.</div>"
+    )
   end
 end
