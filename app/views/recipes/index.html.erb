@@ -1,0 +1,20 @@
+<h1 class="text-3xl font-bold mb-6">🍔 Recipe Finder</h1>
+
+<div data-controller="form" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
+  <%= form_with url: "/recipes", method: :post, data: { turbo_frame: "recipes_result" }, class: "space-y-4" do |form| %>
+    <%= form.label :ingredient, "Enter a keyword (e.g., mushrooms)", class: "block font-semibold" %>
+    <%= form.text_field :ingredient, class: "border rounded px-4 py-2 w-full" %>
+
+    <div class="flex items-center gap-4">
+      <%= form.submit "Find Recipes", class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition", data: { form_target: "button" } %>
+
+      <span class="text-sm text-gray-500 hidden" data-form-target="loading">
+        🔄 Searching recipes...
+      </span>
+    </div>
+  <% end %>
+</div>
+
+<%= turbo_frame_tag "recipes_result" do %>
+  <p class="text-gray-500 mt-4">Search for recipes by ingredient above ☝️</p>
+<% end %>
