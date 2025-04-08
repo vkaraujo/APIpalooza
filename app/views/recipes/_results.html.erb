@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "recipes_result" do %>
+  <div class="mt-6 space-y-4">
+    <h2 class="text-xl font-bold mb-2">🍽️ Recipes with “<%= keyword %>”</h2>
+    <% data.each do |recipe| %>
+      <div class="border rounded p-4 shadow bg-white">
+        <h3 class="text-lg font-semibold"><%= recipe["title"] %></h3>
+        <% if recipe["image"] %>
+          <img src="<%= recipe["image"] %>" alt="<%= recipe["title"] %>" class="w-40 h-auto mt-2 rounded shadow" />
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
