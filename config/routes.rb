@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "/weather", to: "weather#index"
+  post "/weather", to: "weather#show"
   root "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
