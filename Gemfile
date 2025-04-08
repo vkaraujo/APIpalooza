@@ -64,4 +64,4 @@ end
 gem 'turbo-rails'
 gem 'importmap-rails'
 gem 'httparty'
-
+gem 'stimulus-rails'
