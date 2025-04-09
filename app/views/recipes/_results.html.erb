@@ -1,51 +1,44 @@
 <%= turbo_frame_tag "recipes_result" do %>
-  <div class="mt-6 space-y-6">
-    <h2 class="text-xl font-bold mb-2">🍽️ Recipes with “<%= keyword %>”</h2>
+  <div class="mt-8">
+    <h2 class="text-2xl font-bold text-center mb-6">🍽️ Recipes with “<%= keyword %>”</h2>
 
-    <% data.each do |recipe| %>
-      <div class="border rounded p-4 shadow bg-white space-y-2">
-        <h3 class="text-lg font-semibold"><%= recipe["title"] %></h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% data.each do |recipe| %>
+        <div class="border rounded-lg shadow p-4 bg-white space-y-3">
+          <h3 class="text-md font-semibold text-center"><%= recipe["title"] %></h3>
 
-        <% if recipe["error"] %>
-          <p class="text-red-500 text-sm">⚠️ Could not load full details for this recipe.</p>
-          <% next %>
-        <% end %>
-
-        <% if recipe["image"] %>
-          <img src="<%= recipe["image"] %>" alt="<%= recipe["title"] %>" class="w-48 h-auto mt-2 rounded shadow" />
-        <% end %>
-
-        <div class="text-sm text-gray-700">
-          <% if recipe["servings"] %>
-            <p>🍽️ Servings: <%= recipe["servings"] %></p>
+          <% if recipe["error"] %>
+            <p class="text-red-500 text-sm text-center">⚠️ Could not load details</p>
+            <% next %>
           <% end %>
 
-          <% if recipe["readyInMinutes"] %>
-            <p>🕒 Ready in <%= recipe["readyInMinutes"] %> minutes</p>
+          <% if recipe["image"] %>
+            <img src="<%= recipe["image"] %>" alt="<%= recipe["title"] %>"
+              class="w-full aspect-video object-cover rounded shadow-sm" />
           <% end %>
 
-          <% if recipe["dishTypes"]&.any? %>
-            <p>🍴 Dish types: <%= recipe["dishTypes"].join(", ") %></p>
+          <div class="text-sm text-gray-700 text-center space-y-1">
+            <% if recipe["servings"] %>
+              <p>🍽️ Servings: <%= recipe["servings"] %></p>
+            <% end %>
+
+            <% if recipe["readyInMinutes"] %>
+              <p>🕒 Ready in <%= recipe["readyInMinutes"] %> minutes</p>
+            <% end %>
+
+            <% if recipe["dishTypes"]&.any? %>
+              <p>🍴 <%= recipe["dishTypes"].join(", ") %></p>
+            <% end %>
+          </div>
+
+          <% if recipe["sourceUrl"] %>
+            <div class="text-center pt-2">
+              <a href="<%= recipe["sourceUrl"] %>" target="_blank"
+                class="text-blue-600 underline text-sm">View Full Recipe</a>
+            </div>
           <% end %>
         </div>
-
-        <% if recipe["extendedIngredients"]&.any? %>
-          <div class="mt-2">
-            <p class="font-medium">🧂 Ingredients:</p>
-            <ul class="list-disc list-inside text-sm text-gray-600">
-              <% recipe["extendedIngredients"].each do |ingredient| %>
-                <li><%= ingredient["original"] %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-
-        <% if recipe["sourceUrl"] %>
-          <p class="mt-2">
-            <a href="<%= recipe["sourceUrl"] %>" target="_blank" class="text-blue-600 underline">View full recipe</a>
-          </p>
-        <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 <% end %>
