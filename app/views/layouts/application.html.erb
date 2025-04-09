@@ -14,10 +14,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-gray-100 text-gray-900">
+  <body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
     <%= render "shared/navbar" %>
 
-    <main class="bg-white border-t-4 border-yellow-300 shadow-inner">
+    <main class="bg-white border-t-4 border-yellow-300 shadow-inner flex-grow">
       <%= yield %>
     </main>
 
