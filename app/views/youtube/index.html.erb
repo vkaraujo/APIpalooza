@@ -1,0 +1,22 @@
+<div class="container mx-auto px-4 mt-8 mb-8">
+  <h1 class="text-3xl font-bold mb-6">📺 YouTube Search</h1>
+
+  <div data-controller="form" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
+    <%= form_with url: youtube_index_path, method: :post, data: { turbo_frame: "youtube_result" }, class: "space-y-4" do |form| %>
+      <%= form.label :query, "Search for videos", class: "block font-semibold" %>
+      <%= form.text_field :query, class: "border rounded px-4 py-2 w-full" %>
+
+      <div class="flex items-center gap-4">
+        <%= form.submit "Find Videos", class: "bg-rose-600 text-white px-4 py-2 rounded hover:bg-rose-700 transition", data: { form_target: "button" } %>
+
+        <span class="text-sm text-gray-500 hidden" data-form-target="loading">
+          🔎 Searching YouTube...
+        </span>
+      </div>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "youtube_result" do %>
+    <p class="text-gray-500 mt-4">Search for something and let the show begin!</p>
+  <% end %>
+</div>
