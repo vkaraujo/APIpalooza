@@ -1,7 +1,7 @@
 <h1 class="text-3xl font-bold mb-6">😂 Random Joke Generator</h1>
 
 <div data-controller="form" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
-  <%= form_with url: "/jokes", method: :post, data: { turbo_frame: "joke_result" }, class: "space-y-4" do |form| %>
+  <%= form_with url: jokes_path, method: :post, data: { turbo_frame: "joke_result" }, class: "space-y-4" do |form| %>
     <%= form.label :category, "Choose a category", class: "block font-semibold" %>
     <%= form.select :category, ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"], {}, class: "border rounded px-4 py-2 w-full" %>
 

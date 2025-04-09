@@ -6,7 +6,7 @@ class RecipesController < ApplicationController
 
   def index; end
 
-  def show
+  def create
     keyword = params[:ingredient]
     recipes = search_recipes(keyword)
 

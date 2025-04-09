@@ -1,13 +1,12 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
-  root 'pages#home'
+  root "pages#home"
 
-  resource :weather, only: [:index, :show], controller: 'weather'
-  resource :recipes, only: [:index, :show], controller: 'recipes'
-  resource :books, only: [:index, :show], controller: 'books'
-  resource :jokes, only: [:index, :show], controller: 'jokes'
+  resources :weather, only: [:index, :create]
+  resources :recipes, only: [:index, :create]
+  resources :books, only: [:index, :create]
+  resources :jokes, only: [:index, :create]
 
   # Health check
-  get 'up' => 'rails/health#show', as: :rails_health_check
+  get "up" => "rails/health#show", as: :rails_health_check
 end
+

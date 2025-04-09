@@ -6,7 +6,7 @@ class BooksController < ApplicationController
 
   def index; end
 
-  def show
+  def create
     query = params[:query]
     books = search_books(query)
 

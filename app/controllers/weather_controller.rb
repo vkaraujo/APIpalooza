@@ -4,7 +4,7 @@ class WeatherController < ApplicationController
 
   def index; end
 
-  def show
+  def create
     city = params[:city]
     weather_data = fetch_weather_for(city)
 

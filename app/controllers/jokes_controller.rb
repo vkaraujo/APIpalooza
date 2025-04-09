@@ -6,7 +6,7 @@ class JokesController < ApplicationController
 
   def index; end
 
-  def show
+  def create
     category = params[:category]
     joke = fetch_joke(category)
 
