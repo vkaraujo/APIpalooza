@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "trivia_result" do %>
+  <div class="mt-6 p-4 border rounded shadow space-y-3 <%= is_correct ? 'bg-green-50' : 'bg-red-50' %>">
+    <h2 class="text-xl font-bold">
+      <%= is_correct ? "✅ Correct!" : "❌ Not quite..." %>
+    </h2>
+
+    <p class="text-lg"><%= question %></p>
+
+    <p>
+      <strong>Your answer:</strong> <%= chosen %><br>
+      <strong>Correct answer:</strong> <%= correct %>
+    </p>
+
+    <%= link_to "🎲 Try another", trivia_path, class: "inline-block mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700" %>
+  </div>
+<% end %>

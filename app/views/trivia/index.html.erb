@@ -1,0 +1,23 @@
+<h1 class="text-3xl font-bold mb-6">❓ Open Trivia DB</h1>
+
+<div data-controller="form" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
+  <%= form_with url: trivia_path, method: :post, data: { turbo_frame: "trivia_result" }, class: "space-y-4" do |form| %>
+    <%= form.label :difficulty, "Choose difficulty", class: "block font-semibold" %>
+    <%= form.select :difficulty, ["Easy", "Medium", "Hard"], {}, class: "border rounded px-4 py-2 w-full" %>
+
+    <%= form.label :qtype, "Choose question type", class: "block font-semibold" %>
+    <%= form.select :qtype, ["Multiple Choice", "True or False"], {}, class: "border rounded px-4 py-2 w-full" %>
+
+    <div class="flex items-center gap-4">
+      <%= form.submit "Get Question", class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition", data: { form_target: "button" } %>
+
+      <span class="text-sm text-gray-500 hidden" data-form-target="loading">
+        🎯 Getting a question...
+      </span>
+    </div>
+  <% end %>
+</div>
+
+<%= turbo_frame_tag "trivia_result" do %>
+  <p class="text-gray-500 mt-4">Pick your challenge and test your knowledge!</p>
+<% end %>
