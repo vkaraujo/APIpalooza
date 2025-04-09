@@ -1,0 +1,23 @@
+<h1 class="text-3xl font-bold mb-6">🔢 Numbers API</h1>
+
+<div data-controller="form" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
+  <%= form_with url: numbers_path, method: :post, data: { turbo_frame: "numbers_result" }, class: "space-y-4" do |form| %>
+    <%= form.label :value, "Enter a number (or a date like 6/14)", class: "block font-semibold" %>
+    <%= form.text_field :value, class: "border rounded px-4 py-2 w-full" %>
+
+    <%= form.label :type, "Choose fact type", class: "block font-semibold" %>
+    <%= form.select :type, ["trivia", "math", "date", "year"], {}, class: "border rounded px-4 py-2 w-full" %>
+
+    <div class="flex items-center gap-4">
+      <%= form.submit "Get Fact", class: "bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition", data: { form_target: "button" } %>
+
+      <span class="text-sm text-gray-500 hidden" data-form-target="loading">
+        🧠 Fetching a fact...
+      </span>
+    </div>
+  <% end %>
+</div>
+
+<%= turbo_frame_tag "numbers_result" do %>
+  <p class="text-gray-500 mt-4">Type a number or date and get a fun fact!</p>
+<% end %>
