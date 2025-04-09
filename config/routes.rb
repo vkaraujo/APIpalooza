@@ -1,20 +1,13 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  get "/weather", to: "weather#index"
-  post "/weather", to: "weather#show"
-  get "/recipes", to: "recipes#index"
-  post "/recipes", to: "recipes#show"
-  get "/books", to: "books#index"
-  post "/books", to: "books#show"
-  get "/jokes", to: "jokes#index"
-  post "/jokes", to: "jokes#show"
+  root 'pages#home'
 
-  root "pages#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resource :weather, only: [:index, :show], controller: 'weather'
+  resource :recipes, only: [:index, :show], controller: 'recipes'
+  resource :books, only: [:index, :show], controller: 'books'
+  resource :jokes, only: [:index, :show], controller: 'jokes'
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Health check
+  get 'up' => 'rails/health#show', as: :rails_health_check
 end
