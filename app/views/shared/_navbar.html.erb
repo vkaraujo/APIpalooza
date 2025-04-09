@@ -1,14 +1,16 @@
 <header class="bg-white shadow">
   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold"><%= link_to "APIpalooza", root_path %></h1>
+    <h1 class="text-xl font-bold">
+      <%= link_to "APIpalooza", root_path %>
+    </h1>
     <nav class="space-x-4">
       <%= link_to "🌦️ Weather", weather_index_path, class: "text-blue-600 hover:underline" %>
-      <%= link_to "Recipes", "/recipes", class: "text-blue-600 hover:underline" %>
-      <%= link_to "Books", "/books", class: "text-blue-600 hover:underline" %>
-      <%= link_to "Jokes", "/jokes", class: "text-blue-600 hover:underline" %>
-      <%= link_to "Numbers", "/numbers", class: "text-blue-600 hover:underline" %>
-      <%= link_to "Trivia", "/trivia", class: "text-blue-600 hover:underline" %>
-      <%= link_to "Countries", "/countries", class: "text-blue-600 hover:underline" %>
+      <%= link_to "🍔 Recipes", recipes_path, class: "text-blue-600 hover:underline" %>
+      <%= link_to "📚 Books", books_path, class: "text-blue-600 hover:underline" %>
+      <%= link_to "😂 Jokes", jokes_path, class: "text-blue-600 hover:underline" %>
+      <%= link_to "🔢 Numbers", "numbers_path", class: "text-blue-600 hover:underline" %>
+      <%= link_to "❓ Trivia", "trivia_path", class: "text-blue-600 hover:underline" %>
+      <%= link_to "🌍 Countries", "countries_path", class: "text-blue-600 hover:underline" %>
     </nav>
   </div>
 </header>
