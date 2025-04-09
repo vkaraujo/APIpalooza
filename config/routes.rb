@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   post "/weather", to: "weather#show"
   get "/recipes", to: "recipes#index"
   post "/recipes", to: "recipes#show"
+  get "/books", to: "books#index"
+  post "/books", to: "books#show"
 
   root "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
