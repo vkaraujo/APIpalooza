@@ -1,0 +1,19 @@
+<%= turbo_frame_tag "trivia_result" do %>
+  <div class="mt-6 p-4 border rounded bg-indigo-50 shadow space-y-2">
+    <h2 class="text-xl font-bold mb-2">🧠 Trivia Question</h2>
+    <p class="text-lg"><%= question["question"] %></p>
+
+    <%= form_with url: check_trivia_path, method: :post, data: { turbo_frame: "trivia_result" } do |form| %>
+      <%= hidden_field_tag :correct_answer, question["correct_answer"] %>
+      <%= hidden_field_tag :question, question["question"] %>
+
+      <% options = (question["incorrect_answers"] + [question["correct_answer"]]).shuffle %>
+
+      <div class="space-y-2 mt-4">
+        <% options.each do |opt| %>
+          <%= form.submit opt, name: "answer", value: opt, class: "block w-full text-left border px-4 py-2 rounded bg-white hover:bg-indigo-100 cursor-pointer" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

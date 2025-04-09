@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :books, only: [:index, :create]
   resources :jokes, only: [:index, :create]
   resources :numbers, only: [:index, :create]
+  resources :trivia, only: [:index, :create]
+  post "/trivia/check", to: "trivia#check", as: :check_trivia
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
