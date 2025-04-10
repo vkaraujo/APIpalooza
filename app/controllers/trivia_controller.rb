@@ -3,6 +3,9 @@
 class TriviaController < ApplicationController
   attr_reader :last_response_code, :last_response_body
 
+  LAST_TRIVIA_CALL_KEY = "trivia_api_last_call_at"
+  RATE_LIMITED_MESSAGE = '⏳ Slow down, trivia master! The API we use only allows one question every 5 seconds. Please wait a moment and try again.'
+
   include HTTParty
   base_uri 'https://opentdb.com'
 
@@ -17,7 +20,7 @@ class TriviaController < ApplicationController
     if question
       render partial: 'trivia/result', locals: { question: question }
     else
-      rate_limited = last_response_code == 429 || response_code_5?
+      rate_limited = @rate_limited_skipped || last_response_code == 429 || response_code_5?
       render_error(difficulty, qtype, rate_limited: rate_limited)
     end
   end
@@ -40,36 +43,36 @@ class TriviaController < ApplicationController
   end
 
   def fetch_question(difficulty, qtype)
-    response = self.class.get('/api.php', query: {
-      amount: 1,
-      difficulty: difficulty,
-      type: qtype,
-      encode: 'url3986'
-    })
+    return rate_limited_response if rate_limited?
 
-    @last_response_code = response.code
-    @last_response_body = response.body
+    response = make_trivia_request(difficulty, qtype)
+    store_response_data(response)
 
-    parsed = response.parsed_response
-    return nil unless response.success? && parsed['results'].any?
+    return nil unless valid_response?(response)
 
-    decode_question(parsed['results'].first)
+    cache_last_call_time
+    decode_question_params(response.parsed_response["results"].first)
   rescue StandardError => e
-    Rails.logger.error("TriviaAPI error: #{e.message}")
+    Rails.logger.error("Trivia API error: #{e.message}")
     nil
   end
 
-  def decode_question(q)
-    q.transform_values do |v|
-      case v
-      when String then CGI.unescape(v)
-      when Array then v.map { |s| CGI.unescape(s) }
-      else v
+  def decode_question_params(raw_question)
+    raw_question.transform_values do |value|
+      case value
+      when String
+        CGI.unescape(value)
+      when Array
+        value.map { |element| CGI.unescape(element) }
+      else
+        value
       end
     end
   end
 
   def response_code_5?
+    return false unless last_response_body.present?
+
     parsed = JSON.parse(last_response_body)
     parsed['response_code'] == 5
   rescue JSON::ParserError, NoMethodError
@@ -108,9 +111,42 @@ class TriviaController < ApplicationController
 
   def build_error_message(difficulty, qtype, rate_limited)
     if rate_limited
-      '⚠️ Too many requests! Please wait a few seconds and try again.'
+      RATE_LIMITED_MESSAGE
     else
       "😓 Couldn't get a new #{qtype} question (#{difficulty}). Try again or change the settings."
     end
+  end
+
+  def rate_limited?
+    @last_trivia_call = Rails.cache.read(LAST_TRIVIA_CALL_KEY)
+    @last_trivia_call && Time.current - @last_trivia_call < 5.seconds
+  end
+
+  def rate_limited_response
+    Rails.logger.info("🚫 Trivia API request skipped — last call was too recent")
+    @rate_limited_skipped = true
+    nil
+  end
+
+  def make_trivia_request(difficulty, qtype)
+    self.class.get("/api.php", query: {
+      amount: 1,
+      difficulty: difficulty,
+      type: qtype,
+      encode: "url3986"
+    })
+  end
+
+  def store_response_data(response)
+    @last_response_code = response.code
+    @last_response_body = response.body
+  end
+
+  def valid_response?(response)
+    response.success? && response.parsed_response["results"].any?
+  end
+
+  def cache_last_call_time
+    Rails.cache.write(LAST_TRIVIA_CALL_KEY, Time.current, expires_in: 10.seconds)
   end
 end
