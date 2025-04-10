@@ -1,24 +1,34 @@
-# README
+# APIpalooza
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**APIpalooza** is a fun Ruby on Rails project designed to showcase API integration skills across multiple external services. The goal was to experiment with a variety of public APIs, present each one in a clean and interactive interface, and ensure consistent design, responsiveness, and user experience throughout the app.
 
-Things you may want to cover:
+While the project draws visual inspiration from the energy of a music festival, the core objective is to demonstrate proficiency with Rails, Hotwire, Tailwind CSS, and HTTP client integrations.
 
-* Ruby version
 
-* System dependencies
+## 🚀 Technologies Used
 
-* Configuration
+- **Ruby on Rails 7**
+- **Hotwire (Turbo + Stimulus)**
+- **Tailwind CSS**
+- **HTTParty**
 
-* Database creation
 
-* Database initialization
+## 🌐 Integrated APIs
 
-* How to run the test suite
+Each API has its own dedicated page and feature. The following APIs are used:
 
-* Services (job queues, cache servers, search engines, etc.)
+| API | Description | Documentation |
+|-----|-------------|---------------|
+| [OpenWeatherMap](https://openweathermap.org/api) | Current weather and forecast by city name | [Docs](https://openweathermap.org/current) |
+| [Spoonacular](https://spoonacular.com/food-api) | Recipe search by ingredient | [Docs](https://spoonacular.com/food-api/docs) |
+| [Open Library](https://openlibrary.org/developers/api) | Book search by keyword or author | [Docs](https://openlibrary.org/dev/docs/api/search) |
+| [JokeAPI](https://jokeapi.dev) | Programming jokes, dad jokes, dark humor and more | [Docs](https://jokeapi.dev) |
+| [Numbers API](http://numbersapi.com/) | Trivia, math, year, and date facts about numbers | [Docs](http://numbersapi.com/#42) |
+| [Open Trivia DB](https://opentdb.com/api_config.php) | Random trivia questions by difficulty and type | [Docs](https://opentdb.com/api_config.php) |
+| [YouTube Data API](https://developers.google.com/youtube/v3) | Video search and embedding | [Docs](https://developers.google.com/youtube/v3) |
 
-* Deployment instructions
+---
 
-* ...
+## About the Project
+
+This project was built as a personal exploration of working with external APIs in Rails. The emphasis was on building small, self-contained features for each API while maintaining a consistent structure and design language. It also served as an opportunity to experiment with Hotwire and Tailwind in a playful but technically grounded way.
