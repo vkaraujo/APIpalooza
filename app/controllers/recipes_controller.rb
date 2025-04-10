@@ -25,19 +25,22 @@ class RecipesController < ApplicationController
   end
 
   def search_recipes(keyword)
-    response = self.class.get('/recipes/complexSearch',
-                              headers: { 'x-api-key' => api_key },
-                              query: { query: keyword, number: 6 })
-
-    response.success? ? response.parsed_response['results'] : nil
+    Rails.cache.fetch(["recipes_search", keyword.downcase], expires_in: 30.minutes) do
+      response = self.class.get('/recipes/complexSearch',
+                                headers: { 'x-api-key' => api_key },
+                                query: { query: keyword, number: 6 })
+      response.success? ? response.parsed_response['results'] : nil
+    end
   end
 
   def fetch_detailed_recipes(recipes)
     recipes.map do |recipe|
-      response = self.class.get("/recipes/#{recipe['id']}/information",
-                                headers: { 'x-api-key' => api_key })
+      Rails.cache.fetch(["recipe_detail", recipe["id"]], expires_in: 2.hours) do
+        response = self.class.get("/recipes/#{recipe['id']}/information",
+                                  headers: { 'x-api-key' => api_key })
 
-      response.success? ? response.parsed_response : fallback_recipe(recipe)
+        response.success? ? response.parsed_response : fallback_recipe(recipe)
+      end
     end
   end
 
