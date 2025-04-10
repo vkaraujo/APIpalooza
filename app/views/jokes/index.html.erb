@@ -1,20 +1,33 @@
-<h1 class="text-3xl font-bold mb-6">😂 Random Joke Generator</h1>
+<div class="container mx-auto px-4 py-12 max-w-2xl">
+  <h1 class="text-3xl font-bold mb-6 text-center">😂 Random Joke Generator</h1>
 
-<div data-controller="form" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
-  <%= form_with url: jokes_path, method: :post, data: { turbo_frame: "joke_result" }, class: "space-y-4" do |form| %>
-    <%= form.label :category, "Choose a category", class: "block font-semibold" %>
-    <%= form.select :category, ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"], {}, class: "border rounded px-4 py-2 w-full" %>
+  <div data-controller="form category" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
+    <%= form_with url: jokes_path, method: :post, data: { turbo_frame: "joke_result" }, class: "space-y-4" do |form| %>
+      <%= form.label :category, "Choose a category", class: "block font-semibold" %>
+      <%= form.select :category,
+        ["Programming", "Misc", "Dark", "Pun", "Spooky", "Christmas"],
+        { selected: "Programming" },
+        class: "border rounded px-4 py-2 w-full",
+        data: { action: "change->category#toggleWarning", category_target: "select" } %>
 
-    <div class="flex items-center gap-4">
-      <%= form.submit "Get Joke", class: "bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition", data: { form_target: "button" } %>
+      <div
+        data-category-target="warning"
+        class="hidden mt-2 text-base text-yellow-800 bg-yellow-100 border border-yellow-300 p-4 rounded-lg shadow-sm"
+      >
+        ⚠️ You're entering the <strong>Dark Humor</strong> zone. I am not responsible for whatever the API sends you. Good luck.
+      </div>
 
-      <span class="text-sm text-gray-500 hidden" data-form-target="loading">
-        🤡 Getting your joke...
-      </span>
-    </div>
+      <div class="flex items-center gap-4">
+        <%= form.submit "Get Joke", class: "bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition", data: { form_target: "button" } %>
+
+        <span class="text-sm text-gray-500 hidden" data-form-target="loading">
+          🤡 Getting your joke...
+        </span>
+      </div>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "joke_result", class: "mt-6" do %>
+    <p class="text-gray-500 text-center">Choose a category and get ready to laugh!</p>
   <% end %>
 </div>
-
-<%= turbo_frame_tag "joke_result" do %>
-  <p class="text-gray-500 mt-4">Choose a category and get ready to laugh!</p>
-<% end %>

@@ -1,14 +1,21 @@
 <%= turbo_frame_tag "joke_result" do %>
-  <div class="mt-6 p-4 border rounded bg-yellow-50 shadow">
-    <h2 class="text-xl font-bold mb-2">🤣 Here's your joke:</h2>
+  <div class="mt-8">
+    <h2 class="text-2xl font-bold text-center mb-4">🤣 Here's your joke:</h2>
 
-    <% if joke["type"] == "single" %>
-      <p class="text-lg"><%= joke["joke"] %></p>
-    <% elsif joke["type"] == "twopart" %>
-      <p class="text-lg mb-2"><strong>Setup:</strong> <%= joke["setup"] %></p>
-      <p class="text-lg"><strong>Punchline:</strong> <%= joke["delivery"] %></p>
-    <% else %>
-      <p class="text-red-600">Oops! Couldn’t understand this joke format.</p>
-    <% end %>
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 shadow text-center max-w-xl mx-auto">
+      <% if joke["type"] == "single" %>
+        <p class="text-lg"><%= joke["joke"] %></p>
+
+      <% elsif joke["type"] == "twopart" %>
+        <p class="text-lg mb-4"><strong>Question:</strong> <%= joke["setup"] %></p>
+        <p class="text-lg text-yellow-800">
+          <strong>Answer:</strong> <%= joke["delivery"] %>
+        </p>
+
+
+      <% else %>
+        <p class="text-red-600">Oops! Couldn’t understand this joke format.</p>
+      <% end %>
+    </div>
   </div>
 <% end %>
