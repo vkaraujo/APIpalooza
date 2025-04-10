@@ -27,7 +27,7 @@ class RecipesController < ApplicationController
   def search_recipes(keyword)
     response = self.class.get('/recipes/complexSearch',
                               headers: { 'x-api-key' => api_key },
-                              query: { query: keyword, number: 5 })
+                              query: { query: keyword, number: 6 })
 
     response.success? ? response.parsed_response['results'] : nil
   end

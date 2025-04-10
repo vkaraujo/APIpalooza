@@ -1,11 +1,22 @@
-<h1 class="text-3xl font-bold mb-6">🌦️ Weather Lookup</h1>
+<div class="container mx-auto px-4 py-12 max-w-2xl">
+  <h1 class="text-3xl font-bold mb-6 text-center">🌦️ Weather Lookup</h1>
 
-<%= form_with url: weather_index_path, method: :post, data: { turbo_frame: "weather_result" }, class: "space-y-4" do |form| %>
-  <%= form.label :city, "Enter a city", class: "block font-semibold" %>
-  <%= form.text_field :city, class: "border rounded px-4 py-2 w-full" %>
-  <%= form.submit "Get Weather", class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
-<% end %>
+  <div data-controller="form" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
+    <%= form_with url: weather_index_path, method: :post, data: { turbo_frame: "weather_result" }, class: "space-y-4" do |form| %>
+      <%= form.label :city, "Enter a city", class: "block font-semibold" %>
+      <%= form.text_field :city, class: "border rounded px-4 py-2 w-full" %>
 
-<%= turbo_frame_tag "weather_result" do %>
-  <p class="text-gray-500">Enter a city above to see the weather!</p>
-<% end %>
+      <div class="flex items-center gap-4">
+        <%= form.submit "Get Weather", class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition", data: { form_target: "button" } %>
+
+        <span class="text-sm text-gray-500 hidden" data-form-target="loading">
+          🌍 Fetching forecast...
+        </span>
+      </div>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "weather_result", class: "mt-6" do %>
+    <p class="text-gray-500 text-center">Enter a city above to see the weather!</p>
+  <% end %>
+</div>

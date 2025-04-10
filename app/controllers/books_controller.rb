@@ -22,7 +22,7 @@ class BooksController < ApplicationController
   def search_books(query)
     response = self.class.get('/search.json', query: { q: query })
 
-    response.success? ? response.parsed_response['docs'].first(10) : nil
+    response.success? ? response.parsed_response['docs'].first(9) : nil
   rescue StandardError => e
     Rails.logger.error("OpenLibrary error: #{e.message}")
     nil

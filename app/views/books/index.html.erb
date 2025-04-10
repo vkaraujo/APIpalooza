@@ -1,20 +1,22 @@
-<h1 class="text-3xl font-bold mb-6">📚 Book Search</h1>
+<div class="container mx-auto px-4 py-12 max-w-2xl">
+  <h1 class="text-3xl font-bold mb-6 text-center">📚 Book Search</h1>
 
-<div data-controller="form" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
-  <%= form_with url: books_path, method: :post, data: { turbo_frame: "books_result" }, class: "space-y-4" do |form| %>
-    <%= form.label :query, "Enter a title, author, or keyword", class: "block font-semibold" %>
-    <%= form.text_field :query, class: "border rounded px-4 py-2 w-full" %>
+  <div data-controller="form" data-action="turbo:submit-start->form#submit turbo:submit-end->form#reset">
+    <%= form_with url: books_path, method: :post, data: { turbo_frame: "books_result" }, class: "space-y-4" do |form| %>
+      <%= form.label :query, "Enter a title, author, or keyword", class: "block font-semibold" %>
+      <%= form.text_field :query, class: "border rounded px-4 py-2 w-full" %>
 
-    <div class="flex items-center gap-4">
-      <%= form.submit "Search Books", class: "bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition", data: { form_target: "button" } %>
+      <div class="flex items-center gap-4">
+        <%= form.submit "Search Books", class: "bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition", data: { form_target: "button" } %>
 
-      <span class="text-sm text-gray-500 hidden" data-form-target="loading">
-        🔎 Searching books...
-      </span>
-    </div>
+        <span class="text-sm text-gray-500 hidden" data-form-target="loading">
+          🔎 Searching books...
+        </span>
+      </div>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "books_result", class: "mt-6" do %>
+    <p class="text-gray-500 text-center">Search for books using any keyword ☝️</p>
   <% end %>
 </div>
-
-<%= turbo_frame_tag "books_result" do %>
-  <p class="text-gray-500 mt-4">Search for books using any keyword ☝️</p>
-<% end %>
