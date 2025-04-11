@@ -29,6 +29,14 @@ Each API has its own dedicated page and feature. The following APIs are used:
 
 ---
 
+### ⏰ Running Sidekiq with Scheduled Jobs
+
+To enable scheduled background jobs like weather data refreshing, use the following command to start Sidekiq with the custom configuration:
+
+```bash
+bundle exec sidekiq -C config/sidekiq.yml
+```
+
 ## About the Project
 
 This project was built as a personal exploration of working with external APIs in Rails. The emphasis was on building small, self-contained features for each API while maintaining a consistent structure and design language. It also served as an opportunity to experiment with Hotwire and Tailwind in a playful but technically grounded way.
