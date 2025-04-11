@@ -19,6 +19,19 @@ class NumbersController < ApplicationController
     end
   end
 
+  def surprise
+    value = rand(1..1000)
+    type = %w[trivia math year].sample
+  
+    fact = fetch_fact(value, type)
+  
+    if fact
+      render partial: "numbers/result", locals: { fact: fact, warning: "🎲 Random #{type} fact about #{value}" }
+    else
+      render_error(value, type)
+    end
+  end
+
   private
 
   def fetch_fact(value, type)

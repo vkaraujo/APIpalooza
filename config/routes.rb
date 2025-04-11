@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :books, only: [:index, :create]
   resources :jokes, only: [:index, :create]
   resources :numbers, only: [:index, :create]
+  post "/numbers/surprise", to: "numbers#surprise", as: :surprise_numbers
   resources :trivia, only: [:index, :create]
   post "/trivia/check", to: "trivia#check", as: :check_trivia
   resources :youtube, only: [:index, :create]
