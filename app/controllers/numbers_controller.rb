@@ -23,7 +23,8 @@ class NumbersController < ApplicationController
     fact = Numbers::FactFetcher.new(value: value, type: type).call
 
     if fact
-      render partial: "numbers/result", locals: { fact: fact, warning: "🎲 Random #{type} fact about #{value}" }
+      warning = "🎲 Random <strong>#{type}</strong> fact about <strong>#{value}</strong>"
+      render partial: "numbers/result", locals: { fact: fact, warning: warning }
     else
       render_error(value, type)
     end
