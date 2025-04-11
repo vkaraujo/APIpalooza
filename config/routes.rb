@@ -1,4 +1,9 @@
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq' if Rails.env.development?
+
   root "pages#home"
 
   resources :weather, only: [:index, :create]
