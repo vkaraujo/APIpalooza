@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 class BooksController < ApplicationController
-  include HTTParty
-  base_uri 'https://openlibrary.org'
-
   def index; end
 
   def create
     query = params[:query]
-    books = search_books(query)
+    books = Books::Fetcher.new(query).call
 
     if books
       render partial: 'books/results', locals: { data: books, query: query }
@@ -18,15 +15,6 @@ class BooksController < ApplicationController
   end
 
   private
-
-  def search_books(query)
-    response = self.class.get('/search.json', query: { q: query })
-
-    response.success? ? response.parsed_response['docs'].first(9) : nil
-  rescue StandardError => e
-    Rails.logger.error("OpenLibrary error: #{e.message}")
-    nil
-  end
 
   def render_error(query)
     render turbo_stream: turbo_stream.replace(
