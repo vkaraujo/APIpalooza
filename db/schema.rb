@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_10_220515) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_11_004932) do
   create_table "weather_snapshots", force: :cascade do |t|
     t.string "city"
     t.float "temperature"
@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_10_220515) do
     t.datetime "fetched_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "humidity"
+    t.float "wind_speed"
   end
 
 end

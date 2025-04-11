@@ -1,4 +1,5 @@
-# app/controllers/weather_controller.rb
+# frozen_string_literal: true
+
 class WeatherController < ApplicationController
   include HTTParty
   base_uri "https://api.openweathermap.org/data/2.5"
@@ -11,25 +12,14 @@ class WeatherController < ApplicationController
 
     if snapshot
       Rails.logger.info("⚡ Using cached snapshot for #{city}")
-      data = {
-        "name" => snapshot.city,
-        "main" => {
-          "temp" => snapshot.temperature,
-          "humidity" => 70 # optional, mock as needed
-        },
-        "weather" => [
-          { "description" => snapshot.condition }
-        ],
-        "wind" => {
-          "speed" => 3.2 # optional, mock as needed
-        }
-      }
-
-      render partial: "weather/result", locals: { data: data }
+      render partial: "weather/result", locals: { data: snapshot_to_api_format(snapshot) }
     else
       data = fetch_weather_for(city)
       save_weather_snapshot(city, data) if data
-      render partial: "weather/result", locals: { data: data || { "name" => city, "main" => { "temp" => "N/A" }, "weather" => [{ "description" => "Unavailable" }], "wind" => { "speed" => "N/A" } } }
+
+      render partial: "weather/result", locals: {
+        data: data || fallback_data(city)
+      }
     end
   end
 
@@ -38,7 +28,7 @@ class WeatherController < ApplicationController
   def fetch_weather_for(city)
     response = self.class.get("/weather", query: {
       q: city,
-      appid: ENV["OPENWEATHER_API_KEY"],
+      appid: api_key,
       units: "metric"
     })
 
@@ -53,7 +43,38 @@ class WeatherController < ApplicationController
     snapshot.update(
       temperature: data.dig("main", "temp"),
       condition: data.dig("weather", 0, "description"),
+      humidity: data.dig("main", "humidity"),
+      wind_speed: data.dig("wind", "speed"),
       fetched_at: Time.current
     )
+  end
+
+  def fallback_data(city)
+    {
+      "name" => city,
+      "main" => { "temp" => "N/A", "humidity" => "N/A" },
+      "weather" => [{ "description" => "Unavailable" }],
+      "wind" => { "speed" => "N/A" }
+    }
+  end
+
+  def api_key
+    ENV["OPENWEATHER_API_KEY"]
+  end
+
+  def snapshot_to_api_format(snapshot)
+    {
+      "name" => snapshot.city,
+      "main" => {
+        "temp" => snapshot.temperature,
+        "humidity" => snapshot.humidity
+      },
+      "weather" => [
+        { "description" => snapshot.condition }
+      ],
+      "wind" => {
+        "speed" => snapshot.wind_speed
+      }
+    }
   end
 end
