@@ -1,4 +1,10 @@
 # APIpalooza
+[![CI](https://github.com/vkaraujo/APIpalooza/actions/workflows/ci.yml/badge.svg)](https://github.com/vkaraujo/APIpalooza/actions)
+![Coverage](https://img.shields.io/badge/Coverage-89.31%25-brightgreen)
+![Ruby](https://img.shields.io/badge/Ruby-3.2.4-red?logo=ruby)
+![Rails](https://img.shields.io/badge/Rails-7.1.5.1-red?logo=rubyonrails)
+![Last Commit](https://img.shields.io/github/last-commit/vkaraujo/APIpalooza)
+
 
 ![image](https://github.com/user-attachments/assets/9bd0b841-ab45-48b9-9c84-3d2762f8c507)
 
@@ -51,6 +57,19 @@ COVERAGE=true bundle exec rspec
 After the tests run, open the file coverage/index.html in your browser to view a detailed report.
 This helps identify which parts of the application are not yet covered by tests.
 
+## ✅ Continuous Integration (CI)
+
+This project uses **GitHub Actions** to automatically run tests on every push and pull request.
+
+The CI workflow ensures that the codebase remains stable and that all RSpec tests pass before new changes are merged.
+
+**CI Features:**
+
+- ⏱️ Runs on every `push` and `pull_request`
+- ✅ Executes the full test suite using `RSpec`
+- ❌ Fails early if any test or setup step fails
+
+You can view workflow runs in the [Actions tab](https://github.com/vkaraujo/APIpalooza/actions).
 
 ## 🌐 Integrated APIs
 
