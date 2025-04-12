@@ -15,6 +15,25 @@ While the project draws visual inspiration from the energy of a music festival, 
 - **Tailwind CSS**
 - **HTTParty**
 
+
+## ⚙️ Backend Features by API
+
+This app demonstrates different backend techniques across each API integration to showcase versatility and practical Rails patterns:
+
+| API         | Features & Techniques Used |
+|-------------|-----------------------------|
+| **Weather** | - Database snapshot caching (1 entry per city)  <br>- Background job to refresh data hourly using Sidekiq & sidekiq-scheduler |
+| **Recipes** | - External API integration with API key  <br>- Rails low-level caching (`Rails.cache`) for search and details |
+| **Books**   | - Basic HTTP API fetcher with graceful fallback  <br>- Service object pattern |
+| **Jokes**   | - Simple service-based fetcher with category param handling |
+| **Numbers** | - Service object with validation logic  <br>- Custom warning messages per input type  <br>- "🎲 Surprise Me" feature |
+| **Trivia**  | - Rate limiting with cache to throttle excessive API requests  <br>- Turbo stream updates with detailed feedback |
+| **YouTube** | - Integration with Google Cloud (YouTube Data API)  <br>- Service object pattern with API key handling |
+
+Each controller and service was written with clarity and testability in mind, and all core logic is covered by RSpec tests.
+
+
+
 ## ✅ Test Coverage
 
 This project uses [SimpleCov](https://github.com/simplecov-ruby/simplecov) to measure code coverage in tests.
