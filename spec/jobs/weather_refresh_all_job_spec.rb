@@ -7,10 +7,14 @@ RSpec.describe WeatherRefreshAllJob, type: :job do
   let(:api_key) { ENV["OPENWEATHER_API_KEY"] }
 
   describe "#perform" do
+    before do
+      stub_const("ENV", ENV.to_h.merge("OPENWEATHER_API_KEY" => "test_key"))
+    end
+
     context "when the API returns a successful response" do
       before do
         stub_request(:get, "https://api.openweathermap.org/data/2.5/weather")
-          .with(query: { q: "London", appid: api_key, units: "metric" })
+          .with(query: { q: "London", appid: "test_key", units: "metric" })
           .to_return(
             status: 200,
             body: {
