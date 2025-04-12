@@ -16,6 +16,9 @@ While the project draws visual inspiration from the energy of a music festival, 
 
 This project uses [SimpleCov](https://github.com/simplecov-ruby/simplecov) to measure code coverage in tests.
 
+![image](https://github.com/user-attachments/assets/450c0636-bde3-4aee-a5c1-449147191ae8)
+
+
 ### 🧪 Running with Coverage Report
 
 To generate a coverage report, run:
