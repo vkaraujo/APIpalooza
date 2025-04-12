@@ -12,6 +12,20 @@ While the project draws visual inspiration from the energy of a music festival, 
 - **Tailwind CSS**
 - **HTTParty**
 
+## ✅ Test Coverage
+
+This project uses [SimpleCov](https://github.com/simplecov-ruby/simplecov) to measure code coverage in tests.
+
+### 🧪 Running with Coverage Report
+
+To generate a coverage report, run:
+
+```bash
+COVERAGE=true bundle exec rspec
+```
+After the tests run, open the file coverage/index.html in your browser to view a detailed report.
+This helps identify which parts of the application are not yet covered by tests.
+
 
 ## 🌐 Integrated APIs
 

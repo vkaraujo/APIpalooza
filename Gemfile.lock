@@ -108,6 +108,7 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.6.1)
+    docile (1.4.0)
     dotenv (3.1.7)
     dotenv-rails (3.1.7)
       dotenv (= 3.1.7)
@@ -270,6 +271,12 @@ GEM
       rufus-scheduler (~> 3.2)
       sidekiq (>= 6, < 8)
       tilt (>= 1.4.0, < 3)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -330,6 +337,7 @@ DEPENDENCIES
   selenium-webdriver
   sidekiq
   sidekiq-scheduler
+  simplecov
   sprockets-rails
   sqlite3 (>= 1.4)
   stimulus-rails
