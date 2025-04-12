@@ -1,0 +1,31 @@
+name: Run Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.4
+          bundler-cache: true
+
+      - name: Set database config
+        run: cp config/database.yml.github-actions config/database.yml
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Setup test database
+        run: |
+          bin/rails db:drop db:create db:migrate RAILS_ENV=test
+
+      - name: Run tests
+        run: RAILS_ENV=test bundle exec rspec
+
