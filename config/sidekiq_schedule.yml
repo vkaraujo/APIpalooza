@@ -1,0 +1,5 @@
+:schedule:
+  weather_refresh_all:
+    cron: "0 0 * * *"
+    class: "WeatherRefreshAllJob"
+    queue: default
