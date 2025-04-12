@@ -4,8 +4,9 @@
 ![Ruby](https://img.shields.io/badge/Ruby-3.2.4-red?logo=ruby)
 ![Rails](https://img.shields.io/badge/Rails-7.1.5.1-red?logo=rubyonrails)
 ![Last Commit](https://img.shields.io/github/last-commit/vkaraujo/APIpalooza)
+[![Deploy Status](https://img.shields.io/badge/Render-Deployed-3c873a?style=flat&logo=render)](https://apipalooza.onrender.com)
 
-
+**Live app:** [https://apipalooza.onrender.com](https://apipalooza.onrender.com)
 ![image](https://github.com/user-attachments/assets/9bd0b841-ab45-48b9-9c84-3d2762f8c507)
 
 
@@ -13,14 +14,18 @@
 
 While the project draws visual inspiration from the energy of a music festival, the core objective is to demonstrate proficiency with Rails, Hotwire, Tailwind CSS, and HTTP client integrations.
 
+#### 🛠️ Architecture & Tech Used
 
-## 🚀 Technologies Used
-
-- **Ruby on Rails 7**
-- **Hotwire (Turbo + Stimulus)**
+- **Rails 7.1** with **Hotwire/Turbo**
 - **Tailwind CSS**
 - **HTTParty**
-
+- **Sidekiq** for background jobs (`WeatherRefreshAllJob`)
+- **Redis** for job queue and caching
+- **RSpec** with full controller & service specs
+- **WebMock** for external API stubbing
+- **SimpleCov** for code coverage
+- **CI/CD:** GitHub Actions (runs tests on push & PR)
+- **Deploy:** [Render](https://render.com/) — Free tier
 
 ## ⚙️ Backend Features by API
 
