@@ -38,7 +38,22 @@ This app demonstrates different backend techniques across each API integration t
 
 Each controller and service was written with clarity and testability in mind, and all core logic is covered by RSpec tests.
 
+## 🚀 Render Deployment Strategy
 
+To make this app deployable on [Render's free tier](https://render.com), we made a few key adjustments:
+
+- **ActiveJob runs inline in production**  
+  Background jobs are executed immediately, instead of requiring a Sidekiq worker.
+
+- **Sidekiq Scheduler is disabled in production**  
+  Our job schedule is defined in `config/sidekiq_schedule.yml`, but it's only loaded in development to avoid breaking free-tier hosting.
+
+- **Manual Rake Task as an Alternative to Cron**  
+  Instead of automatic job scheduling, you can manually refresh weather data anytime using the command below:
+
+```bash
+bin/rails weather:refresh_all
+```
 
 ## ✅ Test Coverage
 

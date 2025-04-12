@@ -1,6 +1,3 @@
-:schedule:
-  weather_refresh_all:
-    cron: "0 * * * *"   # every hour
-    class: "WeatherRefreshAllJob"
-    queue: default
-    
+:concurrency: 5
+:queues:
+  - default
