@@ -1,5 +1,8 @@
 # APIpalooza
 
+![image](https://github.com/user-attachments/assets/9bd0b841-ab45-48b9-9c84-3d2762f8c507)
+
+
 **APIpalooza** is a fun Ruby on Rails project designed to showcase API integration skills across multiple external services. The goal was to experiment with a variety of public APIs, present each one in a clean and interactive interface, and ensure consistent design, responsiveness, and user experience throughout the app.
 
 While the project draws visual inspiration from the energy of a music festival, the core objective is to demonstrate proficiency with Rails, Hotwire, Tailwind CSS, and HTTP client integrations.
